@@ -6,6 +6,7 @@ import Tabs from "../components/Tabs";
 import About from "../components/About";
 import Slider from "../components/Slider";
 import { fetchCredits } from "../api/cast";
+import Videos from "../components/Videos";
 
 const tabs = ["О фильме", "Трейлеры", "Галерея"];
 
@@ -32,8 +33,6 @@ const Movie = () => {
     getMovieData();
   }, [movieID]);
 
-  console.log(movie);
-
   if (!movie) return null;
 
   return (
@@ -50,6 +49,11 @@ const Movie = () => {
               titleKey="name"
               imgKey="profile_path"
             />
+          </>
+        )}
+        {activeTab === "Трейлеры" && (
+          <>
+            <Videos />
           </>
         )}
       </div>
