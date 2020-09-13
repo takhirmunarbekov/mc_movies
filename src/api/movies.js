@@ -16,6 +16,14 @@ export const fetchSimilar = (id) =>
       console.log(err);
     });
 
+export const fetchMovieVideos = (id) =>
+  request
+    .get(`/movie/${id}/videos`)
+    .then((res) => res.data)
+    .catch((err) => {
+      console.log(err);
+    });
+
 export const fetchPopularMovies = () =>
   request
     .get(`/movie/popular`)

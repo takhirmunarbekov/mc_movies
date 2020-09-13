@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Banner from "../components/Banner";
-import { fetchMovie, fetchSimilar } from "../api/movies";
+import { fetchMovie, fetchMovieVideos, fetchSimilar } from "../api/movies";
 import Tabs from "../components/Tabs";
 import About from "../components/About";
 import Slider from "../components/Slider";
@@ -11,63 +11,49 @@ const tabs = ["О фильме", "Трейлеры", "Галерея"];
 
 const Movie = () => {
   const [movie, setMovie] = useState(null);
-  const [cast, setCast] = useState([]);
-  const [similar, setSimilar] = useState([]);
   const [activeTab, setActiveTab] = useState(tabs[0]);
   const { id: movieID } = useParams();
 
   useEffect(() => {
-    const getMovie = async () => {
-      const response = await fetchMovie(movieID);
+    const getMovieData = async () => {
+      const movie = await fetchMovie(movieID);
+      const cast = await fetchCredits(movieID);
+      const similar = await fetchSimilar(movieID);
+      const videos = await fetchMovieVideos(movieID);
 
-      if (response) setMovie(response);
+      setMovie({
+        data: movie || null,
+        cast: cast ? cast.cast : [],
+        similar: similar ? similar.results : [],
+        videos: videos ? videos.results : [],
+      });
     };
 
-    getMovie();
+    getMovieData();
   }, [movieID]);
 
-  useEffect(() => {
-    const getCast = async () => {
-      const response = await fetchCredits(movieID);
-
-      if (response.cast) setCast(response.cast);
-    };
-
-    getCast();
-  }, [movieID]);
-
-  useEffect(() => {
-    const getSimilar = async () => {
-      const response = await fetchSimilar(movieID);
-
-      if (response) setSimilar(response.results);
-    };
-
-    getSimilar();
-  }, [movieID]);
+  console.log(movie);
 
   if (!movie) return null;
 
-  console.log(cast);
-
   return (
     <div className="movie">
-      <Banner data={movie} />
+      <Banner data={movie.data} />
       <Tabs tabs={tabs} activeTab={activeTab} onChange={setActiveTab} />
       <div className="movie__content">
         {activeTab === "О фильме" && (
           <>
-            <About data={movie} />
+            <About data={movie.data} />
             <Slider
               title="Актерский состав"
-              items={cast}
+              items={movie.cast}
               titleKey="name"
               imgKey="profile_path"
             />
           </>
         )}
       </div>
-      <Slider items={similar} title="Похожие фильмы" />
+      <Slider items={movie.similar} title="Похожие фильмы" />
     </div>
   );
 };

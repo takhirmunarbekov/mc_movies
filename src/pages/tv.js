@@ -69,7 +69,7 @@ const Tv = () => {
           </>
         )}
       </div>
-      <Slider items={similar} title="Похожие сериалы" />
+      <Slider items={similar} title="Похожие сериалы" link="tv" />
     </div>
   );
 };
