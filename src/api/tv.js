@@ -1,8 +1,16 @@
 import request from "./request";
 
-export const fetchTv = () =>
+export const fetchTv = (id) =>
   request
-    .get(`/tv/550`)
+    .get(`/tv/${id}`)
+    .then((res) => res.data)
+    .catch((err) => {
+      console.log(err);
+    });
+
+export const fetchSimilar = (id) =>
+  request
+    .get(`/tv/${id}/similar`)
     .then((res) => res.data)
     .catch((err) => {
       console.log(err);

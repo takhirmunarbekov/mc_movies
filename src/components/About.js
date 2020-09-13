@@ -38,10 +38,25 @@ const About = ({ data }) =>
           <li>
             <div className="about-list__name">Жанры</div>
             <div className="about-list__value">
-              {data.genres.map((genre) => (
-                <span>{genre.name}</span>
+              {data.genres.map((genre, key) => (
+                <>
+                  <span>{genre.name}</span>{" "}
+                  {key + 1 !== data.genres.length ? " , " : null}
+                </>
               ))}
             </div>
+          </li>
+          <li>
+            <div className="about-list__name">Бюджет</div>
+            <div className="about-list__value">{data.budget} $</div>
+          </li>
+          <li>
+            <div className="about-list__name">Прибыль</div>
+            <div className="about-list__value">{data.revenue} $</div>
+          </li>
+          <li>
+            <div className="about-list__name">Статус</div>
+            <div className="about-list__value">{data.status}</div>
           </li>
         </ul>
       </div>

@@ -35,7 +35,12 @@ const Main = () => {
     <div>
       <Banner data={randomData} />
       <Slider title="Популярные фильмы" items={popular} />
-      <Slider title="Популярные сериалы" items={popularTv} />
+      <Slider
+        title="Популярные сериалы"
+        items={popularTv}
+        titleKey="name"
+        link="/tv"
+      />
     </div>
   );
 };

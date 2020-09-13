@@ -8,6 +8,14 @@ export const fetchMovie = (id) =>
       console.log(err);
     });
 
+export const fetchSimilar = (id) =>
+  request
+    .get(`/movie/${id}/similar`)
+    .then((res) => res.data)
+    .catch((err) => {
+      console.log(err);
+    });
+
 export const fetchPopularMovies = () =>
   request
     .get(`/movie/popular`)

@@ -14,7 +14,7 @@
       margin-left: 24px;
       color: $blue;
       font-size: 14px;
-      text-decoration:none;
+      text-decoration: none;
     }
   }
 
@@ -38,6 +38,8 @@
     white-space: nowrap;
     scroll-snap-align: start;
     cursor: pointer;
+    color: $white;
+    text-decoration: none;
 
     &:first-child {
       margin-left: 64px;
